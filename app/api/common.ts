@@ -14,9 +14,7 @@ export async function requestOpenai(req: NextRequest) {
     const res = await api.sendMessage('Hello World!')
     console.log(res.text)
 
-  const res = await api.sendMessage('Hello World!')
-  console.log(res.text)
-  return res
+    return res
   // const controller = new AbortController();
   // const authValue = req.headers.get("Authorization") ?? "";
   // const openaiPath = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
