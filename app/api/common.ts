@@ -14,8 +14,14 @@ export async function requestOpenai(req: NextRequest) {
   })
     const res = await api.sendMessage('Hello World!')
     console.log(res.text)
-
-    return res
+    const newHeaders = new Headers(req.headers);
+    // to disable nginx buffering
+    newHeaders.set("X-Accel-Buffering", "no");
+    return new Response(res.text, {
+      status: 200,
+      statusText: "test",
+      headers: newHeaders,
+    });
   // const controller = new AbortController();
   // const authValue = req.headers.get("Authorization") ?? "";
   // const openaiPath = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
