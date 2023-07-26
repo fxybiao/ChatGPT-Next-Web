@@ -9,7 +9,7 @@ const DISABLE_GPT4 = !!process.env.DISABLE_GPT4;
 
 export async function requestOpenai(req: NextRequest) {
     const api = new ChatGPTUnofficialProxyAPI({
-    accessToken: process.env.OPENAI_ACCESS_TOKEN
+    accessToken: process.env.OPENAI_API_KEY
   })
     const res = await api.sendMessage('Hello World!')
     console.log(res.text)
