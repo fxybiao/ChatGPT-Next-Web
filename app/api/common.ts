@@ -92,29 +92,29 @@ export async function requestOpenai(req: NextRequest) {
     accessToken: OPENAI_API_KEY
   })
     const res = await api.sendMessage('Hello World!')
-    console.log(res.text)
-    const newHeaders = new Headers(req.headers);
-    // to disable nginx buffering
-    newHeaders.set("X-Accel-Buffering", "no");
-    return new Response(res.text, {
-      status: 200,
-      statusText: "test",
-      headers: newHeaders,
-    });
-      
-    // const res = await fetch(fetchUrl, fetchOptions);
-
-    // // to prevent browser prompt for credentials
-    // const newHeaders = new Headers(res.headers);
-    // newHeaders.delete("www-authenticate");
+    console.log("res from proxied server:",res.text)
+    // const newHeaders = new Headers(req.headers);
     // // to disable nginx buffering
     // newHeaders.set("X-Accel-Buffering", "no");
-
-    // return new Response(res.body, {
-    //   status: res.status,
-    //   statusText: res.statusText,
+    // return new Response(res.text, {
+    //   status: 200,
+    //   statusText: "test",
     //   headers: newHeaders,
     // });
+      
+    const res = await fetch(fetchUrl, fetchOptions);
+
+    // to prevent browser prompt for credentials
+    const newHeaders = new Headers(res.headers);
+    newHeaders.delete("www-authenticate");
+    // to disable nginx buffering
+    newHeaders.set("X-Accel-Buffering", "no");
+
+    return new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers: newHeaders,
+    });
   } finally {
     clearTimeout(timeoutId);
   }
