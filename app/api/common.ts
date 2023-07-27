@@ -88,11 +88,11 @@ export async function requestOpenai(req: NextRequest) {
   }
 
   try {
-    const api = new ChatGPTUnofficialProxyAPI({
-    accessToken: OPENAI_API_KEY
-  })
-    const reso = await api.sendMessage('Hello World!')
-    console.log("res from proxied server:",reso.text)
+  //   const api = new ChatGPTUnofficialProxyAPI({
+  //   accessToken: OPENAI_API_KEY
+  // })
+  //   const reso = await api.sendMessage('Hello World!')
+  //   console.log("res from proxied server:",reso.text)
     // const newHeaders = new Headers(req.headers);
     // // to disable nginx buffering
     // newHeaders.set("X-Accel-Buffering", "no");
